@@ -1,0 +1,59 @@
+version: '3.3'
+
+networks:
+  back:
+    # use a custom driver, with no options
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.16.239.0/24
+
+services:
+  tester:
+    build:
+      context: ./tester
+
+    networks:
+      back:
+        ipv4_address: 172.16.239.10
+    logging:
+      driver: json-file
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+       back:
+        ipv4_address: 172.16.239.11
+    logging:
+      driver: json-file
+
+  lmtp-server:
+    depends_on:
+      - mongodb
+    build:
+      context: ./lmtp-server
+    ports:
+     - "10025:10025"
+    networks:
+       back:
+        ipv4_address: 172.16.239.12
+    logging:
+      driver: json-file
+
+  trashmail-client:
+    depends_on:
+      - mongodb
+    build:
+      context: ./trashmail-client
+    ports:
+      - "3000:3000"
+    networks:
+      back:
+        ipv4_address: 172.16.239.13
+    logging:
+      driver: json-file
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd /home/trashmail/trashmail
+npm install
+npm install
+

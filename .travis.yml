@@ -1,0 +1,10 @@
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+script:
+  - docker-compose build
+  - docker-compose run test
+

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+cd trashmail-client || exit 1
+if [ ! -d trashmail2-client ]; then
+  git clone git@git.felsing.net:Christian_Felsing/trashmail2-client.git
+else
+  cd trashmail2-client
+  git pull
+  cd ..
+fi
+cd ..
+
+cd tester || exit 1
+if [ ! -d trashmail2-client ]; then
+  git clone git@git.felsing.net:Christian_Felsing/trashmail2-client.git
+else
+  cd trashmail2-client
+  git pull
+  cd ..
+fi
+cd ..
+
+if [ ! -d lmtp-server/git ]; then
+  mkdir lmtp-server/git
+fi
+cd lmtp-server/git || exit 1
+if [ ! -d lmtp-server ]; then
+  git clone git@git.felsing.net:Christian_Felsing/lmtp-server.git
+else
+  cd lmtp-server
+  git pull
+  cd ..
+fi
+cd ..
+rsync --delete -va git/lmtp-server/src/  src/
+cd ..
+
+echo "Build"
+for i in trashmail-client lmtp-server tester; do
+  docker-compose build "$i"
+done
+

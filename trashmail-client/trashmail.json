@@ -1,0 +1,28 @@
+{
+  "configRuntime": "trashmail.runtime.json",
+  "title": "One-Time Mail",
+  "baseurl": "http://localhost",
+  "sessionSecret": "Dmw7DbLIcvtsLvZcXKhqtr6aVmQTD5mq",
+  "cachetime": 2592000,
+  "text": {
+    "nocontent": "Diese Mail enthält keinen Text",
+    "invalid_request": "Ungültiger Zugriff"
+  },
+  "client": {
+    "qrcode": true,
+    "text": {
+      "nomails": "Es liegen derzeit keine Mails vor",
+      "impress": "Christian Felsing<br/>Brüder-Grimm-Straße 2<br/>65232 Taunusstein<br/>E-Mail: hostmaster@spamwc.de",
+      "dialogDelete": "Möchten Sie die Mail wirklich löschen?"
+    }
+  },
+  "cookie": {
+    "secure": false
+  },
+  "log_combined": true,
+  "consoleLogLevel": "debug",
+  "trusted_proxies": [ "loopback" ],
+  "mongo_url": "mongodb://127.0.0.1:27017/",
+  "mongo_db": "trashmail-lmtp",
+  "eof": true
+}

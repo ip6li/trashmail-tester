@@ -1,0 +1,10 @@
+#!/bin/sh
+
+service="$1"
+
+if [ -z "$service" ]; then
+  docker-compose up --detach --no-deps --force-recreate $service
+else
+  docker-compose up --detach --force-recreate
+fi
+

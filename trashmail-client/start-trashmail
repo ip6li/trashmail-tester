@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ADDRESS="0.0.0.0"
+export ADDRESS
+
+cd /home/trashmail/trashmail
+bin/www
+

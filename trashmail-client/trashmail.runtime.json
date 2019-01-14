@@ -1,0 +1,26 @@
+{
+  "domains": [ "dev.spamwc.de", "example.com" ],
+  "showdkim": true,
+  "use_rbl": false,
+  "rbls": [
+    {"zone": "sbl.spamhaus.org"},
+    {"zone": "ix.dnsbl.manitu.net"}
+  ],
+  "blacklisted_net": [
+    "127.0.0.99/32"
+  ],
+  "reservedNames": [
+    "root", "hostmaster",
+    "postmaster"
+  ],
+  "attachments": true,
+  "allowedMimes_": [
+    "text/plain",
+    "application/pdf"
+  ],
+  "forbiddenMimes": [
+    "application/pkcs7-signature",
+    "application/x-pkcs7-signature"
+  ],
+  "eof": true
+}

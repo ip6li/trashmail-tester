@@ -1,0 +1,18 @@
+#!/bin/sh
+
+name="$1"
+if [ -z "$name" ]; then
+  echo "usage: $0 <name>"
+  exit 1
+fi
+
+# docker ps --filter name=trashmail-client --format='{{.ID}}'
+id=`docker ps --filter name="$name" --format='{{.ID}}'`
+
+if [ -z "$id" ]; then
+  echo "no id found"
+  exit 1
+fi
+
+docker-compose exec "$name" /bin/bash
+

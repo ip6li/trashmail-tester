@@ -17,17 +17,11 @@ ENV LC_ALL de_DE.UTF-8
 run groupadd trashmail
 run useradd -g trashmail -s /bin/false -md /home/trashmail trashmail
 
-
-
 run apt-get update
-RUN apt-get install -y xvfb
 RUN apt-get install -y \
-  firefox \
-  firefox-locale-de \
+  gnupg2 \
   python3-selenium \
   curl
-
-RUN apt-get install -y gnupg2
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -y nodejs

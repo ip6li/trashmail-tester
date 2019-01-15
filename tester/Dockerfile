@@ -32,10 +32,6 @@ RUN apt-get install -y gnupg2
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
 RUN apt-get install -y nodejs
 
-
-
-
-
 run mkdir /home/trashmail/trashmail
 
 add trashmail2-client/test /home/trashmail/trashmail
@@ -43,6 +39,9 @@ add start-tests /home/trashmail/start-tests
 run chmod 755  /home/trashmail/start-tests
 add install-tests /home/trashmail/install-tests
 run chmod 755  /home/trashmail/install-tests
+
+add test-remote.py /home/trashmail/test-remote.py
+run chmod 755 /home/trashmail/test-remote.py
 
 run chown -R trashmail:trashmail /home/trashmail/
 

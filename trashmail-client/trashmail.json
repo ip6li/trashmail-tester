@@ -22,7 +22,7 @@
   "log_combined": true,
   "consoleLogLevel": "debug",
   "trusted_proxies": [ "loopback" ],
-  "mongo_url": "mongodb://127.0.0.1:27017/",
+  "mongo_url": "mongodb://172.16.239.11:27017/",
   "mongo_db": "trashmail-lmtp",
   "eof": true
 }

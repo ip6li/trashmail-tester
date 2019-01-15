@@ -11,15 +11,35 @@ networks:
         subnet: 172.16.239.0/24
 
 services:
-  tester:
-    build:
-      context: ./tester
-
+  selenium-hub:
+    image: selenium/hub:3.141.59-dubnium
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
     networks:
       back:
-        ipv4_address: 172.16.239.10
+        ipv4_address: 172.16.239.8
     logging:
       driver: json-file
+
+  firefox:
+    image: selenium/node-firefox:3.141.59-dubnium
+    container_name: selenium-hub-firefox
+    depends_on:
+      - selenium-hub
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    networks:
+      back:
+        ipv4_address: 172.16.239.9
+    logging:
+      driver: json-file
+    entrypoint: bash -c 'SE_OPTS="-timeout 60" /opt/bin/entry_point.sh'
 
   mongodb:
     image: mongo
@@ -41,6 +61,17 @@ services:
     networks:
        back:
         ipv4_address: 172.16.239.12
+    logging:
+      driver: json-file
+
+  tester:
+    build:
+      context: ./tester
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      back:
+        ipv4_address: 172.16.239.10
     logging:
       driver: json-file
 

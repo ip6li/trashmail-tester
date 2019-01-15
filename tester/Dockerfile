@@ -20,13 +20,17 @@ run useradd -g trashmail -s /bin/false -md /home/trashmail trashmail
 
 
 run apt-get update
-RUN apt-get install -y --fix-missing \
+RUN apt-get install -y xvfb
+RUN apt-get install -y \
+  firefox \
   firefox-locale-de \
-  firefox xvfb \
   python3-selenium \
-  nodejs \
-  npm
+  curl
 
+RUN apt-get install -y gnupg2
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt-get install -y nodejs
 
 
 
@@ -46,6 +50,6 @@ USER trashmail
 run /home/trashmail/install-tests
 
 USER root
-#cmd ["sh", "-c", "su -s /bin/bash -c /home/trashmail/start-trashmail trashmail"]
-cmd ["sh", "-c", "service rsyslogd start ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail; tail -F /var/log/syslog"]
+cmd ["sh", "-c", "service rsyslog start ; tail -F /var/log/syslog"]
+#cmd ["sh", "-c", "service rsyslogd start ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail; tail -F /var/log/syslog"]
 

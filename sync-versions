@@ -10,16 +10,6 @@ else
 fi
 cd ..
 
-cd tester || exit 1
-if [ ! -d trashmail2-client ]; then
-  git clone git@git.felsing.net:Christian_Felsing/trashmail2-client.git
-else
-  cd trashmail2-client
-  git pull
-  cd ..
-fi
-cd ..
-
 if [ ! -d lmtp-server/git ]; then
   mkdir lmtp-server/git
 fi
@@ -35,8 +25,5 @@ cd ..
 rsync --delete -va git/lmtp-server/src/  src/
 cd ..
 
-echo "Build"
-for i in trashmail-client lmtp-server tester; do
-  docker-compose build "$i"
-done
+docker-compose build
 

@@ -4,5 +4,5 @@ addons:
       - docker-ce
 
 script:
-  - start
+  - cd ip6li/trashmail-tester && chmod 755 start && ./start
 

@@ -5,7 +5,8 @@ run apt-get update
 run apt-get install -q -y apt-utils
 run apt-get install -q -y \
   locales \
-  syslog-ng
+  rsyslog \
+  git-core
 
 RUN mv /etc/locale.gen /etc/locale.gen.ORIG
 RUN echo "de_DE.UTF-8 UTF-8" > /etc/locale.gen
@@ -26,9 +27,9 @@ add clean-tmp /usr/local/bin/clean-tmp
 run chmod 755 /usr/local/bin/clean-tmp
 
 run mkdir /home/trashmail/.trashmail
-run mkdir /home/trashmail/trashmail
 
-add trashmail2-client/app /home/trashmail/trashmail
+run cd /home/trashmail && git clone https://github.com/ip6li/trashmail2.git trashmail
+
 add trashmail.json  /home/trashmail/.trashmail/
 add trashmail.runtime.json /home/trashmail/.trashmail/
 add start-trashmail /home/trashmail/start-trashmail
@@ -42,5 +43,5 @@ USER trashmail
 run /home/trashmail/install-trashmail
 
 USER root
-cmd ["sh", "-c", "service syslog-ng start ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail ;  tail -F /var/log/syslog"]
+cmd ["sh", "-c", "service rsyslog start ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail ;  tail -F /var/log/syslog"]
 

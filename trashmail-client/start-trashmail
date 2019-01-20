@@ -3,6 +3,6 @@
 ADDRESS="0.0.0.0"
 export ADDRESS
 
-cd /home/trashmail/trashmail
+cd /home/trashmail/trashmail/app
 bin/www
 

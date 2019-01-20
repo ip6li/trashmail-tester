@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/trashmail/trashmail
+cd /home/trashmail/trashmail/app
 npm install
 npm install
 

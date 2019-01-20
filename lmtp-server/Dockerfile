@@ -1,29 +1,31 @@
 from ubuntu:18.04
 maintainer Christian Felsing <support@felsing.net>
 
-run apt-get update
-run apt-get install -q -y apt-utils
-run apt-get install -q -y \
+RUN apt-get update
+RUN apt-get install -q -y apt-utils
+RUN apt-get install -q -y \
   language-pack-de \
   python3-pymongo \
+  git-core \
   curl
 
-run update-locale LANG=de_DE.UTF-8
+RUN mv /etc/locale.gen /etc/locale.gen.ORIG
+RUN echo "de_DE.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen de_DE.UTF-8  
+ENV LANG de_DE.UTF-8  
+ENV LANGUAGE de_DE:de
+ENV LC_ALL de_DE.UTF-8
 
-# Use Mailbox format.
-#run DEBIAN_FRONTEND=noninteractive apt-get install -q -y postfix
+RUN groupadd trashmail
+RUN useradd -g trashmail -s /bin/bash -md /home/trashmail trashmail
 
-run groupadd trashmail
-run useradd -g trashmail -s /bin/bash -md /home/trashmail trashmail
-run mkdir /home/trashmail/lmtp
-run chown trashmail:trashmail /home/trashmail/lmtp
+RUN mkdir /tmp/lmtp-server
 
-run mkdir /tmp/lmtp-server
-run chown trashmail:trashmail /tmp/lmtp-server
+RUN cd /home/trashmail && git clone https://github.com/ip6li/lmtp-server.git lmtp
+ADD lmtp-server.ini /home/trashmail/.trashmail/
 
-add src/*.py /home/trashmail/lmtp/
-add lmtp-server.ini /home/trashmail/.trashmail/
+RUN chown trashmail:trashmail /home/trashmail
+RUN chown trashmail:trashmail /tmp/lmtp-server
 
-expose 10025
-cmd ["sh", "-c", "service syslog-ng start ; su -c /home/trashmail/lmtp/main.py trashmail"]
+cmd ["sh", "-c", "su -c /home/trashmail/lmtp/src/main.py trashmail ; tail -f /var/log/dpkg.log"]
 

@@ -28,6 +28,5 @@ run chmod 755 /home/trashmail/test-remote.py
 
 run chown -R trashmail:trashmail /home/trashmail/
 
-#cmd ["sh", "-c", "service rsyslog start ; tail -F /var/log/syslog"]
 cmd ["sh", "-c", "su -s /bin/bash -c /home/trashmail/test-remote.py trashmail"]
 

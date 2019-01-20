@@ -7,3 +7,6 @@ addons:
 
 sudo: false
 
+script:
+  - ./start
+

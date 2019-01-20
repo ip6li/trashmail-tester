@@ -10,6 +10,5 @@ sudo: false
 script:
   - pwd
   - ls -la
-  - ls -la /home/travis
-  - find /home/travis -name start
+  - ./start
 

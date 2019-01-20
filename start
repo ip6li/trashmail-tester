@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 service="$1"
 DO_SHUTDOWN=1

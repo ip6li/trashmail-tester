@@ -3,6 +3,8 @@
 service="$1"
 DO_SHUTDOWN=1
 
+which curl || exit 1
+
 for i in lmtp-server trashmail-client; do
   docker-compose build --no-cache "$i"
 done

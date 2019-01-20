@@ -8,9 +8,9 @@ for i in lmtp-server trashmail-client; do
 done
 
 if [ -z "$service" ]; then
-  docker-compose up --detach --no-deps --force-recreate $service
+  docker-compose up -d --no-deps --force-recreate $service || exit 1
 else
-  docker-compose up --detach --scale tester=0
+  docker-compose up -d --scale tester=0 || exit 1
 fi
 
 while : ; do

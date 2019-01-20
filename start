@@ -5,9 +5,9 @@ DO_SHUTDOWN=1
 
 which curl || exit 1
 
-for i in lmtp-server trashmail-client; do
-  docker-compose build --no-cache "$i"
-done
+#for i in lmtp-server trashmail-client; do
+#  docker-compose build --no-cache "$i"
+#done
 
 if [ -z "$service" ]; then
   docker-compose up -d --no-deps --force-recreate $service || exit 1
@@ -15,14 +15,22 @@ else
   docker-compose up -d --scale tester=0 || exit 1
 fi
 
+count=30
 while : ; do
   docker-compose ps lmtp-server | grep healthy
   if [ $? -eq 0 ]; then break; fi
+  sleep 1
+  let count=${count}-1
+  if [ $count -eq 0 ]; then exit 1; fi
 done
 
+count=30
 while : ; do
   docker-compose ps firefox | grep healthy
   if [ $? -eq 0 ]; then break; fi
+  sleep 1
+  let count=${count}-1
+  if [ $count -eq 0 ]; then exit 1; fi
 done
 
 docker-compose up tester

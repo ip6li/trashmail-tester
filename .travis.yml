@@ -1,7 +1,11 @@
+dist: xenial
+
 language: generic
 
 addons:
   apt:
+    sources:
+      - docker-xenial
     packages:
       - docker-ce
 
@@ -17,8 +21,6 @@ before_install:
 sudo: required
 
 script:
-  - pwd
-  - ls -la
   - docker-compose --version
   - ./start
 

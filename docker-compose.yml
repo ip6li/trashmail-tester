@@ -40,6 +40,11 @@ services:
     logging:
       driver: json-file
     entrypoint: bash -c 'SE_OPTS="-timeout 60" /opt/bin/entry_point.sh'
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "curl --silent http://172.16.239.8:4444/wd/hub/status | grep ready | grep true"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   mongodb:
     image: mongo
@@ -63,8 +68,18 @@ services:
         ipv4_address: 172.16.239.12
     logging:
       driver: json-file
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "/usr/bin/curl --silent -f smtp://172.16.239.12:10025 --mail-from myself@example.com --mail-rcpt myself@example.com > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: on-failure
 
   tester:
+    depends_on:
+      - lmtp-server
+      - trashmail-client
+      - firefox
     build:
       context: ./tester
     volumes:
@@ -87,4 +102,6 @@ services:
         ipv4_address: 172.16.239.13
     logging:
       driver: json-file
+    restart: on-failure
+
 

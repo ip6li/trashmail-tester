@@ -6,7 +6,7 @@ run apt-get install -q -y apt-utils
 run apt-get install -q -y \
   language-pack-de \
   python3-pymongo \
-  syslog-ng
+  curl
 
 run update-locale LANG=de_DE.UTF-8
 
@@ -25,7 +25,5 @@ add src/*.py /home/trashmail/lmtp/
 add lmtp-server.ini /home/trashmail/.trashmail/
 
 expose 10025
-#cmd ["sh", "-c", "service syslog-ng start ; /home/trashmail/lmtp/main.py ;  tail -F /var/log/syslog"]
 cmd ["sh", "-c", "service syslog-ng start ; su -c /home/trashmail/lmtp/main.py trashmail"]
-#cmd ["sh", "-c", "service syslog-ng start ; tail -F /var/log/syslog"]
 

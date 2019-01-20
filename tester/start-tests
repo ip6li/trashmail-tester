@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd /home/trashmail/trashmail
-ls -la
-

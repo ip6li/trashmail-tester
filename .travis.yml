@@ -1,8 +1,9 @@
+language: generic
+
 addons:
   apt:
     packages:
       - docker-ce
 
-script:
-  - cd ip6li/trashmail-tester && chmod 755 start && ./start
+sudo: false
 

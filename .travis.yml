@@ -8,5 +8,8 @@ addons:
 sudo: false
 
 script:
-  - ./start
+  - pwd
+  - ls -la
+  - ls -la /home/travis
+  - find /home/travis -name start
 

@@ -1,7 +1,26 @@
 #!/usr/bin/env bash
 
+
+wait_for_start(){
+  target="$1"
+  if [ -z "$target" ]; then
+    echo "target not set, exit"
+    exit 1
+  fi
+  count=30
+  while : ; do
+    docker-compose ps "$target" | grep healthy
+    if [ $? -eq 0 ]; then break; fi
+    sleep 1
+    let count=${count}-1
+    if [ $count -eq 0 ]; then exit 1; fi
+  done
+  echo "$target ready for service"
+}
+
+
 service="$1"
-DO_SHUTDOWN=1
+DO_SHUTDOWN=0
 
 which curl || exit 1
 
@@ -15,35 +34,10 @@ else
   docker-compose up -d --scale tester=0 || exit 1
 fi
 
-count=30
-while : ; do
-  docker-compose ps lmtp-server | grep healthy
-  if [ $? -eq 0 ]; then break; fi
-  sleep 1
-  let count=${count}-1
-  if [ $count -eq 0 ]; then exit 1; fi
-done
-echo "lmtp-server ready for service"
-
-count=30
-while : ; do
-  docker-compose ps firefox | grep healthy
-  if [ $? -eq 0 ]; then break; fi
-  sleep 1
-  let count=${count}-1
-  if [ $count -eq 0 ]; then exit 1; fi
-done
-echo "selenium firefox ready for service"
-
-count=30
-while : ; do
-  docker-compose ps trashmail-client | grep healthy
-  if [ $? -eq 0 ]; then break; fi
-  sleep 1
-  let count=${count}-1
-  if [ $count -eq 0 ]; then exit 1; fi
-done
-echo "trashmail-client (test subject) ready for service"
+wait_for_start "mongodb"
+wait_for_start "lmtp-server"
+wait_for_start "firefox"
+wait_for_start "trashmail-client"
 
 ECHO=echo
 docker-compose up tester

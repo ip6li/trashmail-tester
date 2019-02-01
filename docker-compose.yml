@@ -55,6 +55,12 @@ services:
         ipv4_address: 172.16.239.11
     logging:
       driver: json-file
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "mongo --eval 'db.version()'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: on-failure
 
   lmtp-server:
     depends_on:

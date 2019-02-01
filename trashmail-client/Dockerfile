@@ -1,11 +1,14 @@
-from node
+from node:10
 maintainer Christian Felsing <support@felsing.net>
+
+ENV DEBIAN_FRONTEND noninteractive
 
 run apt-get update
 run apt-get install -q -y apt-utils
-run apt-get install -q -y \
+run DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
   locales \
-  rsyslog \
+  nullmailer \
+  cron \
   git-core
 
 RUN mv /etc/locale.gen /etc/locale.gen.ORIG
@@ -29,6 +32,7 @@ run chmod 755 /usr/local/bin/clean-tmp
 run mkdir /home/trashmail/.trashmail
 
 run cd /home/trashmail && git clone https://github.com/ip6li/trashmail2.git trashmail
+#run cd /home/trashmail/trashmail && git pull && git checkout Development
 
 add trashmail.json  /home/trashmail/.trashmail/
 add trashmail.runtime.json /home/trashmail/.trashmail/
@@ -43,5 +47,5 @@ USER trashmail
 run /home/trashmail/install-trashmail
 
 USER root
-cmd ["sh", "-c", "service rsyslog start ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail ;  tail -F /var/log/syslog"]
+cmd ["sh", "-c", "touch /var/log/syslog ; su -s /bin/bash -c /home/trashmail/start-trashmail trashmail ;  tail -F /var/log/syslog"]
 

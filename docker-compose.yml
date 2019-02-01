@@ -102,6 +102,10 @@ services:
         ipv4_address: 172.16.239.13
     logging:
       driver: json-file
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "/usr/bin/curl --silent -f http://172.16.239.13:3000 > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     restart: on-failure
-
 

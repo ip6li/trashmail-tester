@@ -1,0 +1,10 @@
+#!/bin/bash
+
+what="$1"
+if [ -z "$what" ]; then
+	echo "usage: $0 <what>"
+	exit 1
+fi
+
+docker-compose build --no-cache "$what" && docker-compose stop "$what" && docker-compose up -d --no-deps "$what"
+

@@ -32,7 +32,7 @@ run chmod 755 /usr/local/bin/clean-tmp
 run mkdir /home/trashmail/.trashmail
 
 run cd /home/trashmail && git clone https://github.com/ip6li/trashmail2.git trashmail
-#run cd /home/trashmail/trashmail && git pull && git checkout Development
+#run cd /home/trashmail/trashmail && git checkout Development && git pull
 
 add trashmail.json  /home/trashmail/.trashmail/
 add trashmail.runtime.json /home/trashmail/.trashmail/

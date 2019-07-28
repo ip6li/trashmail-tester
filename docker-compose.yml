@@ -75,7 +75,7 @@ services:
     logging:
       driver: json-file
     healthcheck:
-      test: ["CMD", "/bin/bash", "-c", "/usr/bin/curl --silent -f smtp://172.16.239.12:10025 --mail-from myself@example.com --mail-rcpt myself@example.com > /dev/null || exit 1"]
+      test: ["CMD", "/bin/bash", "-c", "echo 'ping' | /bin/nc -q 1 172.16.239.12 10025 > /dev/null || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5

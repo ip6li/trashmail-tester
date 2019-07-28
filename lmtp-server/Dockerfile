@@ -5,7 +5,9 @@ RUN apt-get update
 RUN apt-get install -q -y apt-utils
 RUN apt-get install -q -y \
   language-pack-de \
+  netcat \
   python3-pymongo \
+  python3-aiosmtpd \
   git-core \
   curl
 

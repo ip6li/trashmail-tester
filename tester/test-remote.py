@@ -121,7 +121,7 @@ class Test1(unittest.TestCase):
         msg.attach(MIMEText(body_plain, 'plain'))
         msg.attach(MIMEText(body_html, 'html'))
 
-        server = smtplib.SMTP(lmtp_server, lmtp_port)
+        server = smtplib.LMTP(lmtp_server, lmtp_port)
         server.ehlo()
         text = msg.as_string()
 

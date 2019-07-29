@@ -2,7 +2,7 @@ from ubuntu:18.04
 maintainer Christian Felsing <support@felsing.net>
 
 RUN apt-get update
-RUN apt-get install -q -y apt-utils
+RUN apt-get install -q -y apt
 RUN apt-get install -q -y \
   language-pack-de \
   netcat \

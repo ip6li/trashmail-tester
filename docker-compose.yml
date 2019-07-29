@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 networks:
   back:
@@ -67,6 +67,10 @@ services:
       - mongodb
     build:
       context: ./lmtp-server
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${http_proxy}
+        ftp_proxy: ${http_proxy}
     ports:
      - "10025:10025"
     networks:
@@ -88,6 +92,10 @@ services:
       - firefox
     build:
       context: ./tester
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${http_proxy}
+        ftp_proxy: ${http_proxy}
     volumes:
       - /dev/shm:/dev/shm
     networks:
@@ -101,6 +109,10 @@ services:
       - mongodb
     build:
       context: ./trashmail-client
+      args:
+        http_proxy: ${http_proxy}
+        https_proxy: ${http_proxy}
+        ftp_proxy: ${http_proxy}
     ports:
       - "3000:3000"
     networks:

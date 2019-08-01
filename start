@@ -20,7 +20,7 @@ wait_for_start(){
 
 
 service="$1"
-DO_SHUTDOWN=0
+DO_SHUTDOWN=${DO_SHUTDOWN:-1}
 
 which curl || exit 1
 

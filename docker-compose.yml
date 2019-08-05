@@ -21,6 +21,12 @@ services:
         ipv4_address: 172.16.239.8
     logging:
       driver: json-file
+    healthcheck:
+      test: ["CMD", "/bin/bash", "-c", "curl --silent http://172.16.239.8:4444/wd/hub/status | grep ready | grep true"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
 
   firefox:
     image: selenium/node-firefox:3.141.59-dubnium

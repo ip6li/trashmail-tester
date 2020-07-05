@@ -1,4 +1,4 @@
-dist: xenial
+dist: focal
 
 language: generic
 
@@ -10,7 +10,7 @@ addons:
       - docker-ce
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.23.1
+  - DOCKER_COMPOSE_VERSION=1.26.1
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose

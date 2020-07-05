@@ -20,8 +20,7 @@ You may customize following variables, they *must* match Your environment
 
 test_mail_name = "joe.test"
 test_mail_domain = "example.com"
-#url_under_test = "http://172.16.239.13:3000"
-url_under_test = "http://localhost:3000"
+url_under_test = "http://trashmail-client:3000"
 selenium_hub = 'http://172.16.239.8:4444/wd/hub'
 lmtp_server = "172.16.239.12"
 lmtp_port = 25

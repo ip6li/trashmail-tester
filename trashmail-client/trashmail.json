@@ -1,7 +1,7 @@
 {
   "configRuntime": "trashmail.runtime.json",
   "title": "One-Time Mail",
-  "baseurl": "http://localhost",
+  "baseurl": "http://trashmail-client",
   "sessionSecret": "Dmw7DbLIcvtsLvZcXKhqtr6aVmQTD5mq",
   "cachetime": 2592000,
   "text": {
@@ -17,7 +17,9 @@
     }
   },
   "cookie": {
-    "secure": false
+    "secure": false,
+    "httpOnly": true,
+    "sameSite": "lax"
   },
   "log_combined": true,
   "consoleLogLevel": "debug",

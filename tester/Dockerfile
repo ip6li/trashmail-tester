@@ -23,10 +23,10 @@ RUN apt-get install -y \
   python3-selenium \
   curl
 
-add test-remote.py /home/trashmail/test-remote.py
-run chmod 755 /home/trashmail/test-remote.py
+#add test-remote.py /home/trashmail/test-remote.py
+#run chmod 755 /home/trashmail/test-remote.py
 
-run chown -R trashmail:trashmail /home/trashmail/
+#run chown -R trashmail:trashmail /home/trashmail/
 
 cmd ["sh", "-c", "su -s /bin/bash -c /home/trashmail/test-remote.py trashmail"]
 

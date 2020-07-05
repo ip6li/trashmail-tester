@@ -24,7 +24,7 @@ DO_SHUTDOWN=${DO_SHUTDOWN:-1}
 
 which curl || exit 1
 
-for i in lmtp-server trashmail-client; do
+for i in postfix trashmail-client; do
   docker-compose build --no-cache "$i"
 done
 
@@ -35,7 +35,7 @@ else
 fi
 
 wait_for_start "mongodb"
-wait_for_start "lmtp-server"
+wait_for_start "postfix"
 wait_for_start "firefox"
 wait_for_start "trashmail-client"
 

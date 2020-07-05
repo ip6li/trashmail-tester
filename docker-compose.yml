@@ -68,24 +68,24 @@ services:
       retries: 5
     restart: on-failure
 
-  lmtp-server:
+  postfix:
     depends_on:
       - mongodb
     build:
-      context: ./lmtp-server
+      context: ./postfix
       args:
         http_proxy: ${http_proxy}
         https_proxy: ${http_proxy}
         ftp_proxy: ${http_proxy}
     ports:
-     - "10025:10025"
+     - "10025:25"
     networks:
        back:
         ipv4_address: 172.16.239.12
     logging:
       driver: json-file
     healthcheck:
-      test: ["CMD", "/bin/bash", "-c", "echo 'ping' | /bin/nc -q 1 172.16.239.12 10025 > /dev/null || exit 1"]
+      test: ["CMD", "/bin/bash", "-c", "echo 'ehlo example.com' | /bin/nc -q 1 172.16.239.12 25 > /dev/null || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -93,7 +93,7 @@ services:
 
   tester:
     depends_on:
-      - lmtp-server
+      - postfix
       - trashmail-client
       - firefox
     build:
@@ -104,6 +104,7 @@ services:
         ftp_proxy: ${http_proxy}
     volumes:
       - /dev/shm:/dev/shm
+      - ./tester/tmp:/home/trashmail
     networks:
       back:
         ipv4_address: 172.16.239.10

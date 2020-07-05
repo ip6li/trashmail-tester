@@ -1,4 +1,4 @@
-from node:10
+from node:12-buster-slim
 maintainer Christian Felsing <support@felsing.net>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -9,6 +9,7 @@ run DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
   locales \
   nullmailer \
   cron \
+  curl \
   git-core
 
 RUN mv /etc/locale.gen /etc/locale.gen.ORIG
@@ -31,7 +32,7 @@ run chmod 755 /usr/local/bin/clean-tmp
 
 run mkdir /home/trashmail/.trashmail
 
-run cd /home/trashmail && git clone https://github.com/ip6li/trashmail2.git trashmail
+run cd /home/trashmail && git clone https://github.com/ip6li/trashmail2-client.git trashmail
 #run cd /home/trashmail/trashmail && git checkout Development && git pull
 
 add trashmail.json  /home/trashmail/.trashmail/

@@ -3,3 +3,4 @@ postconfig
 ssl
 lmtp-server/git
 lmtp-server/lmtp-server/
+tester/tmp/screen.*

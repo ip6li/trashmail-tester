@@ -24,6 +24,7 @@ url_under_test = "http://trashmail-client:3000"
 selenium_hub = 'http://172.16.239.8:4444/wd/hub'
 lmtp_server = "172.16.239.12"
 lmtp_port = 25
+screenshot_dir = "/home/trashmail"
 
 
 try:
@@ -93,9 +94,9 @@ class Test1(unittest.TestCase):
 
     def do_screenshot(self, mode="error"):
         if mode == "ok":
-            filename = "screen." + str(self.__screen_count) + ".png"
+            filename = screenshot_dir + "/screen." + str(self.__screen_count) + ".png"
         else:
-            filename = "screen.err." + str(self.__screen_count) + ".png"
+            filename = screenshot_dir + "/screen.err." + str(self.__screen_count) + ".png"
         self.driver.save_screenshot(filename)
         self.__screen_count = self.__screen_count + 1
 
@@ -247,4 +248,4 @@ class Test1(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(warnings='ignore')
